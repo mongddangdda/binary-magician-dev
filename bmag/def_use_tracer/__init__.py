@@ -1,1 +1,1 @@
-from .mlil_ssa import MediumLevelILSsaVisitorMixin
+from .mlil_ssa import DefUseMediumLevelSsaTracer
