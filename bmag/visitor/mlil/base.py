@@ -1,7 +1,7 @@
 from binaryninja.mediumlevelil import *
-from bmag.visitor.base import VisitorBase
+from ..base import BinaryNinjaILVisitor
 
-class MediumLevelILBaseVisitorMixin(VisitorBase):
+class MediumLevelILBaseVisitor(BinaryNinjaILVisitor):
 
     def visit_MLIL_UNARY_OP(self, expr: MediumLevelILUnaryBase, *args, **kwargs):
         return self.visit_unhandled(expr, *args, **kwargs)
@@ -21,48 +21,8 @@ class MediumLevelILBaseVisitorMixin(VisitorBase):
     def visit_MLIL_COMPARISON_OP(self, expr: MediumLevelILComparisonBase, *args, **kwargs):
         return self.visit_unhandled(expr, *args, **kwargs)
 
-    def visit_default(self, expr: MediumLevelILInstruction, *args, **kwargs):
-
+    def visit_MLIL_BASE(self, expr: MediumLevelILInstruction, *args, **kwargs):
         match expr.operation:
-
-            case MediumLevelILOperation.MLIL_NOP:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_SET_VAR:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_SET_VAR_FIELD:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_SET_VAR_SPLIT:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_LOAD:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_LOAD_STRUCT:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_STORE:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_STORE_STRUCT:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_VAR:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_VAR_FIELD:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_VAR_SPLIT:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_ADDRESS_OF:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_ADDRESS_OF_FIELD:
-                return self.visit_unhandled(expr, *args, **kwargs)
 
             case MediumLevelILOperation.MLIL_CONST:
                 return self.visit_MLIL_CONST_OP(expr, *args, **kwargs)
@@ -172,38 +132,11 @@ class MediumLevelILBaseVisitorMixin(VisitorBase):
             case MediumLevelILOperation.MLIL_LOW_PART:
                 return self.visit_MLIL_UNARY_OP(expr, *args, **kwargs)
 
-            case MediumLevelILOperation.MLIL_JUMP:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_JUMP_TO:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_RET_HINT:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
             case MediumLevelILOperation.MLIL_CALL:
                 return self.visit_MLIL_CALL_OP(expr, *args, **kwargs)
 
             case MediumLevelILOperation.MLIL_CALL_UNTYPED:
                 return self.visit_MLIL_CALL_OP(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_CALL_OUTPUT:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_CALL_PARAM:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_RET:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_NORET:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_IF:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_GOTO:
-                return self.visit_unhandled(expr, *args, **kwargs)
 
             case MediumLevelILOperation.MLIL_CMP_E:
                 return self.visit_MLIL_COMPARISON_OP(expr, *args, **kwargs)
@@ -238,14 +171,8 @@ class MediumLevelILBaseVisitorMixin(VisitorBase):
             case MediumLevelILOperation.MLIL_TEST_BIT:
                 return self.visit_MLIL_COMPARISON_OP(expr, *args, **kwargs)
 
-            case MediumLevelILOperation.MLIL_BOOL_TO_INT:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
             case MediumLevelILOperation.MLIL_ADD_OVERFLOW:
                 return self.visit_MLIL_BINARY_OP(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_SYSCALL:
-                return self.visit_unhandled(expr, *args, **kwargs)
 
             case MediumLevelILOperation.MLIL_SYSCALL_UNTYPED:
                 return self.visit_MLIL_CALL_OP(expr, *args, **kwargs)
@@ -255,27 +182,6 @@ class MediumLevelILBaseVisitorMixin(VisitorBase):
 
             case MediumLevelILOperation.MLIL_TAILCALL_UNTYPED:
                 return self.visit_MLIL_CALL_OP(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_INTRINSIC:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_FREE_VAR_SLOT:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_BP:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_TRAP:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_UNDEF:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_UNIMPL:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_UNIMPL_MEM:
-                return self.visit_unhandled(expr, *args, **kwargs)
 
             case MediumLevelILOperation.MLIL_FADD:
                 return self.visit_MLIL_BINARY_OP(expr, *args, **kwargs)
@@ -343,36 +249,6 @@ class MediumLevelILBaseVisitorMixin(VisitorBase):
             case MediumLevelILOperation.MLIL_FCMP_UO:
                 return self.visit_MLIL_COMPARISON_OP(expr, *args, **kwargs)
 
-            case MediumLevelILOperation.MLIL_SET_VAR_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_SET_VAR_SSA_FIELD:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_SET_VAR_SPLIT_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_SET_VAR_ALIASED:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_SET_VAR_ALIASED_FIELD:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_VAR_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_VAR_SSA_FIELD:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_VAR_ALIASED:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_VAR_ALIASED_FIELD:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_VAR_SPLIT_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
             case MediumLevelILOperation.MLIL_CALL_SSA:
                 return self.visit_MLIL_CALL_OP(expr, *args, **kwargs)
 
@@ -391,38 +267,5 @@ class MediumLevelILBaseVisitorMixin(VisitorBase):
             case MediumLevelILOperation.MLIL_TAILCALL_UNTYPED_SSA:
                 return self.visit_MLIL_CALL_OP(expr, *args, **kwargs)
 
-            case MediumLevelILOperation.MLIL_CALL_PARAM_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_CALL_OUTPUT_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_LOAD_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_LOAD_STRUCT_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_STORE_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_STORE_STRUCT_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_INTRINSIC_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_FREE_VAR_SLOT_SSA:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_VAR_PHI:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
-            case MediumLevelILOperation.MLIL_MEM_PHI:
-                return self.visit_unhandled(expr, *args, **kwargs)
-
             case _:
                 return self.visit_unhandled(expr, *args, **kwargs)
-
-    def visit(self, expr: MediumLevelILInstruction, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)

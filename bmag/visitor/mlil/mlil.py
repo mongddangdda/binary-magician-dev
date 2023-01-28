@@ -1,328 +1,327 @@
 from binaryninja.mediumlevelil import *
-from bmag.visitor.mlil_base import MediumLevelILBaseVisitorMixin
+from .base import MediumLevelILBaseVisitor
 
-class MediumLevelILVisitorMixin(MediumLevelILBaseVisitorMixin):
+class MediumLevelILVisitor(MediumLevelILBaseVisitor):
 
     def visit_MLIL_NOP(self, expr: MediumLevelILNop, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_SET_VAR(self, expr: MediumLevelILSetVar, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_SET_VAR_FIELD(self, expr: MediumLevelILSetVarField, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_SET_VAR_SPLIT(self, expr: MediumLevelILSetVarSplit, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_LOAD(self, expr: MediumLevelILLoad, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_LOAD_STRUCT(self, expr: MediumLevelILLoadStruct, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_STORE(self, expr: MediumLevelILStore, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_STORE_STRUCT(self, expr: MediumLevelILStoreStruct, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_VAR(self, expr: MediumLevelILVar, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_VAR_FIELD(self, expr: MediumLevelILVarField, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_VAR_SPLIT(self, expr: MediumLevelILVarSplit, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_ADDRESS_OF(self, expr: MediumLevelILAddressOf, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_ADDRESS_OF_FIELD(self, expr: MediumLevelILAddressOfField, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CONST(self, expr: MediumLevelILConst, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CONST_DATA(self, expr: MediumLevelILConstData, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CONST_PTR(self, expr: MediumLevelILConstPtr, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_EXTERN_PTR(self, expr: MediumLevelILExternPtr, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FLOAT_CONST(self, expr: MediumLevelILFloatConst, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_IMPORT(self, expr: MediumLevelILImport, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_ADD(self, expr: MediumLevelILAdd, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_ADC(self, expr: MediumLevelILAdc, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_SUB(self, expr: MediumLevelILSub, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_SBB(self, expr: MediumLevelILSbb, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_AND(self, expr: MediumLevelILAnd, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_OR(self, expr: MediumLevelILOr, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_XOR(self, expr: MediumLevelILXor, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_LSL(self, expr: MediumLevelILLsl, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_LSR(self, expr: MediumLevelILLsr, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_ASR(self, expr: MediumLevelILAsr, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_ROL(self, expr: MediumLevelILRol, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_RLC(self, expr: MediumLevelILRlc, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_ROR(self, expr: MediumLevelILRor, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_RRC(self, expr: MediumLevelILRrc, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_MUL(self, expr: MediumLevelILMul, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_MULU_DP(self, expr: MediumLevelILMuluDp, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_MULS_DP(self, expr: MediumLevelILMulsDp, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_DIVU(self, expr: MediumLevelILDivu, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_DIVU_DP(self, expr: MediumLevelILDivuDp, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_DIVS(self, expr: MediumLevelILDivs, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_DIVS_DP(self, expr: MediumLevelILDivsDp, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_MODU(self, expr: MediumLevelILModu, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_MODU_DP(self, expr: MediumLevelILModuDp, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_MODS(self, expr: MediumLevelILMods, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_MODS_DP(self, expr: MediumLevelILModsDp, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_NEG(self, expr: MediumLevelILNeg, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_NOT(self, expr: MediumLevelILNot, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_SX(self, expr: MediumLevelILSx, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_ZX(self, expr: MediumLevelILZx, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_LOW_PART(self, expr: MediumLevelILLowPart, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_JUMP(self, expr: MediumLevelILJump, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_JUMP_TO(self, expr: MediumLevelILJumpTo, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_RET_HINT(self, expr: MediumLevelILRetHint, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CALL(self, expr: MediumLevelILCall, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CALL_UNTYPED(self, expr: MediumLevelILCallUntyped, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CALL_OUTPUT(self, expr: MediumLevelILCallOutput, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CALL_PARAM(self, expr: MediumLevelILCallParam, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_RET(self, expr: MediumLevelILRet, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_NORET(self, expr: MediumLevelILNoret, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_IF(self, expr: MediumLevelILIf, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_GOTO(self, expr: MediumLevelILGoto, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CMP_E(self, expr: MediumLevelILCmpE, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CMP_NE(self, expr: MediumLevelILCmpNe, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CMP_SLT(self, expr: MediumLevelILCmpSlt, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CMP_ULT(self, expr: MediumLevelILCmpUlt, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CMP_SLE(self, expr: MediumLevelILCmpSle, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CMP_ULE(self, expr: MediumLevelILCmpUle, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CMP_SGE(self, expr: MediumLevelILCmpSge, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CMP_UGE(self, expr: MediumLevelILCmpUge, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CMP_SGT(self, expr: MediumLevelILCmpSgt, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CMP_UGT(self, expr: MediumLevelILCmpUgt, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_TEST_BIT(self, expr: MediumLevelILTestBit, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_BOOL_TO_INT(self, expr: MediumLevelILBoolToInt, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_ADD_OVERFLOW(self, expr: MediumLevelILAddOverflow, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_SYSCALL(self, expr: MediumLevelILSyscall, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_SYSCALL_UNTYPED(self, expr: MediumLevelILSyscallUntyped, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_TAILCALL(self, expr: MediumLevelILTailcall, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_TAILCALL_UNTYPED(self, expr: MediumLevelILTailcallUntyped, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_INTRINSIC(self, expr: MediumLevelILIntrinsic, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FREE_VAR_SLOT(self, expr: MediumLevelILFreeVarSlot, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_BP(self, expr: MediumLevelILBp, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_TRAP(self, expr: MediumLevelILTrap, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_UNDEF(self, expr: MediumLevelILUndef, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_UNIMPL(self, expr: MediumLevelILUnimpl, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_UNIMPL_MEM(self, expr: MediumLevelILUnimplMem, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FADD(self, expr: MediumLevelILFadd, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FSUB(self, expr: MediumLevelILFsub, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FMUL(self, expr: MediumLevelILFmul, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FDIV(self, expr: MediumLevelILFdiv, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FSQRT(self, expr: MediumLevelILFsqrt, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FNEG(self, expr: MediumLevelILFneg, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FABS(self, expr: MediumLevelILFabs, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FLOAT_TO_INT(self, expr: MediumLevelILFloatToInt, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_INT_TO_FLOAT(self, expr: MediumLevelILIntToFloat, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FLOAT_CONV(self, expr: MediumLevelILFloatConv, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_ROUND_TO_INT(self, expr: MediumLevelILRoundToInt, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FLOOR(self, expr: MediumLevelILFloor, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_CEIL(self, expr: MediumLevelILCeil, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FTRUNC(self, expr: MediumLevelILFtrunc, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FCMP_E(self, expr: MediumLevelILFcmpE, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FCMP_NE(self, expr: MediumLevelILFcmpNe, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FCMP_LT(self, expr: MediumLevelILFcmpLt, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FCMP_LE(self, expr: MediumLevelILFcmpLe, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FCMP_GE(self, expr: MediumLevelILFcmpGe, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FCMP_GT(self, expr: MediumLevelILFcmpGt, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FCMP_O(self, expr: MediumLevelILFcmpO, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
     def visit_MLIL_FCMP_UO(self, expr: MediumLevelILFcmpUo, *args, **kwargs):
-        return self.visit_default(expr, *args, **kwargs)
+        return self.visit_MLIL_BASE(expr, *args, **kwargs)
 
-    def visit(self, expr: MediumLevelILInstruction, *args, **kwargs):
-        
+    def visit_MLIL(self, expr: MediumLevelILInstruction, *args, **kwargs):
         match expr.operation:
 
             case MediumLevelILOperation.MLIL_NOP:
@@ -644,4 +643,4 @@ class MediumLevelILVisitorMixin(MediumLevelILBaseVisitorMixin):
                 return self.visit_MLIL_FCMP_UO(expr, *args, **kwargs)
 
             case _:
-                return MediumLevelILBaseVisitorMixin.visit(self, expr, *args, **kwargs)
+                return self.visit_MLIL_BASE(expr, *args, **kwargs)
