@@ -1,15 +1,9 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
-class VisitorBase(ABC):
+class BinaryNinjaILVisitor(ABC):
 
-    @abstractmethod
-    def visit(self, *args, **kwargs):
-        pass
+    def visit(self, expr, *args, **kwargs):
+        self.visit_unhandled(expr, *args, **kwargs)
 
-    @abstractmethod
-    def visit_unhandled(self, *args, **kwargs):
-        pass
-
-    @abstractmethod
-    def visit_default(self, *args, **kwargs):
-        pass
+    def visit_unhandled(self, expr, *args, **kwargs):
+        raise NotImplementedError
