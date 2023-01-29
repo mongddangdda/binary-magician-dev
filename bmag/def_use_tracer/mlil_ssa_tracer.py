@@ -5,6 +5,7 @@ from binaryninja import log_error, log_alert, log_warn, log_info, log_debug
 from binaryninja.mediumlevelil import *
 
 from bmag.visitor.mlil import MediumLevelILSsaVisitor
+from bmag.dftrace.dugraph import DefUseGraph
 
 from .result import Visited, VisitedResult, VisitedResultFlag
 from .mlil_ssa_graph import DefUseMediumLevelILSsaGraph
@@ -16,13 +17,13 @@ class DefUseMediumLevelSsaTracer(MediumLevelILSsaVisitor):
         self.start: SSAVariable = ssa_var
         self.to_visit: deque[Tuple[MediumLevelILInstruction, SSAVariable]] = deque()
         self.visited: list[MediumLevelILInstruction] = list()
-        self.graph: DefUseMediumLevelILSsaGraph = None
+        self.graph: DefUseGraph = None
         self.trace()
 
     def trace(self):
 
         # make graph for result.
-        self.graph = DefUseMediumLevelILSsaGraph()
+        self.graph = DefUseGraph()
         self.graph.add_def(self.start)
 
         # initial visit sites.
@@ -44,11 +45,11 @@ class DefUseMediumLevelSsaTracer(MediumLevelILSsaVisitor):
                         self.to_visit.append((site, ssa_var))
                 case VisitedResult.NO_USE:
                     for definition in visited.def_and_uses:
-                        self.graph.add_end(definition)
+                        self.graph.add_end_with_no_use(definition, exist_ok=True)
                 case VisitedResult.KILLED:
-                    self.graph.add_end(src_ssa_var, curr_site)
+                    self.graph.add_end_with_killed(src_ssa_var, curr_site)
                 case VisitedResult.INVALID:
-                    self.graph.add_end(src_ssa_var, curr_site)
+                    self.graph.add_end_with_killed(src_ssa_var, curr_site)
 
             self.visited.append(curr_site)
 
