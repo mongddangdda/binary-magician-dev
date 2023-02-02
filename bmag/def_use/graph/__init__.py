@@ -1,8 +1,3 @@
-#
-# File header here
-#
-
-
 from .enums import NodeTypes, NodeTypeFlags, EdgeTypes, EdgeTypeFlags
 
 from .def_use_graph import DefUseGraph, DefNode, UseEdge

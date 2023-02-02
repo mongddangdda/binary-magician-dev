@@ -1,8 +1,3 @@
-#
-# File header here
-#
-
-
 from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -18,7 +13,7 @@ class DefUseCalledNode(BaseNode):
 
 
 class DefUseGraphCalledMixin(ABC):
-    
+
     @property
     def ends_with_called(self):
         ...

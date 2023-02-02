@@ -1,8 +1,3 @@
-#
-#
-#
-
-
 from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -10,7 +5,6 @@ if TYPE_CHECKING:
     from binaryninja import SSAVariable
     from binaryninja.mediumlevelil import *
     VisitSiteType = Tuple[MediumLevelILInstruction, SSAVariable]
-
 
 from collections import deque
 

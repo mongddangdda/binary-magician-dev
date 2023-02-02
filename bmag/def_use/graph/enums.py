@@ -1,8 +1,3 @@
-#
-# File header here
-#
-
-
 from enum import IntFlag, IntEnum, auto
 
 

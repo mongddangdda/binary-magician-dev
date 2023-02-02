@@ -1,8 +1,3 @@
-#
-#
-#
-
-
 from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -48,7 +43,7 @@ class UseEdge(BaseEdge):
 
     @classmethod
     def create(cls, graph: DiGraph, src_ssa_var: SSAVariable, dst_ssa_var: SSAVariable, **attr):
-        
+
         if not graph.has_node(src_ssa_var_str := ssa_var_to_str(src_ssa_var)):
             src_node = DefNode.create(graph, src_ssa_var)
             assert src_node.node_id == src_ssa_var_str
@@ -62,7 +57,7 @@ class UseEdge(BaseEdge):
         graph.add_edge(src_ssa_var_str, dst_ssa_var_str, **attr)
 
         return cls(graph, (src_ssa_var_str, dst_ssa_var_str))
-    
+
     @property
     def type(self) -> NodeTypes:
         return EdgeTypes.USE
