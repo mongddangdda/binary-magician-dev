@@ -2,25 +2,19 @@ from enum import IntFlag, IntEnum, auto
 
 
 class NodeTypeFlags(IntFlag):
-    DEF = auto()
-    END = auto()
-    CALLED = auto()
-    KILLED = auto()
-    NO_USE = auto()
-
-
-class EdgeTypeFlags(IntFlag):
-    USE = auto()
+    VAR         = auto()
+    SSA_VAR     = auto()
+    SITE        = auto()
+    DEF         = auto()
+    CALLED      = auto()
+    KILLED      = auto()
+    UNHANDLED   = auto()
 
 
 class NodeTypes(IntEnum):
-    DEF = NodeTypeFlags.DEF
-    END = NodeTypeFlags.END
-    CALLED = NodeTypeFlags.CALLED | NodeTypeFlags.END
-    KILLED = NodeTypeFlags.KILLED | NodeTypeFlags.END
-    NO_USE = NodeTypeFlags.NO_USE | NodeTypeFlags.END
-
-
-class EdgeTypes(IntEnum):
-    USE = EdgeTypeFlags.USE
+    DEF       = NodeTypeFlags.VAR     | NodeTypeFlags.DEF
+    SSA_DEF   = NodeTypeFlags.SSA_VAR | NodeTypeFlags.DEF
+    CALLED    = NodeTypeFlags.SITE    | NodeTypeFlags.CALLED 
+    KILLED    = NodeTypeFlags.SITE    | NodeTypeFlags.KILLED
+    UNHANDLED = NodeTypeFlags.SITE    | NodeTypeFlags.UNHANDLED
 
