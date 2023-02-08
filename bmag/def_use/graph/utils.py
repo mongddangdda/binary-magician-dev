@@ -17,7 +17,7 @@ class GraphUtilsMixin(ABC):
 
     @property
     @abstractmethod
-    def graph(self) -> DiGraph:
+    def nx(self) -> DiGraph:
         ...
 
     def export_html(self, filepath: str | Path) -> None:
@@ -31,8 +31,8 @@ class GraphUtilsMixin(ABC):
         pwd = getcwd()
 
         graph = DiGraph()
-        graph.add_nodes_from(self.graph.nodes(data=False))
-        graph.add_edges_from(self.graph.edges(data=False))
+        graph.add_nodes_from(self.nx.nodes(data=False))
+        graph.add_edges_from(self.nx.edges(data=False))
 
         try:
             net = Network(directed=True)

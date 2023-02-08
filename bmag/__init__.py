@@ -1,1 +1,0 @@
-from bmag.def_use_tracer import DefUseMediumLevelSsaTracer
