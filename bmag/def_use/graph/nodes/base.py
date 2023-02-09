@@ -31,6 +31,13 @@ class BaseNode(ABC):
         node_id = make_node_id(cls.type, val)
         return graph.nx.has_node(node_id)
 
+    @staticmethod
+    def get(cls, graph: DefUseGraph, val: Any):
+        node_id = make_node_id(cls.type, val)
+        if not graph.nx.has_node(node_id):
+            raise ValueError(f"node '{node_id}' not exists.")
+        return cls(graph, node_id)
+
     def __init__(self, graph: DefUseGraph, node_id: str):
         self._graph = graph
         self._node_id = node_id

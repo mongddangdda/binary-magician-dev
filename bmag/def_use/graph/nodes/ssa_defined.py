@@ -22,6 +22,10 @@ class SsaDefNode(SsaVarNode):
     def exists(cls, graph: DefUseGraph, ssa_var: SSAVariable):
         return SsaVarNode.exists(cls, graph, ssa_var)
 
+    @classmethod
+    def get(cls, graph: DefUseGraph, ssa_var: SSAVariable):
+        return SsaVarNode.get(cls, graph, ssa_var)
+
 
 class GraphSsaDefMixin(ABC):
 

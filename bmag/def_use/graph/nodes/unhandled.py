@@ -22,6 +22,10 @@ class UnhandledNode(SiteNode):
     def exists(cls, graph: DefUseGraph, site: AboveMediumIL):
         return SiteNode.exists(cls, graph, site)
 
+    @classmethod
+    def get(cls, graph: DefUseGraph, site: AboveMediumIL):
+        return SiteNode.get(cls, graph, site)
+
 
 class GraphUnhandledMixin(ABC):
 
