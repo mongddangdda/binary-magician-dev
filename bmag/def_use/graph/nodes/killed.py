@@ -20,15 +20,15 @@ class KilledNode(SiteNode):
 
     @classmethod
     def create(cls, graph: DefUseGraph, site: AboveMediumIL, exists_ok=True):
-        return SiteNode.create(cls, graph, site, exists_ok)
+        return SiteNode.create(graph, site, exists_ok)
 
     @classmethod
     def exists(cls, graph: DefUseGraph, site: AboveMediumIL):
-        return SiteNode.exists(cls, graph, site)
+        return SiteNode.exists(graph, site)
 
     @classmethod
     def get(cls, graph: DefUseGraph, site: AboveMediumIL):
-        return SiteNode.exists(cls, graph, site)
+        return SiteNode.exists(graph, site)
 
 
 class GraphKilledMixin(ABC):

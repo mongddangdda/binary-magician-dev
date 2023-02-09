@@ -114,7 +114,7 @@ class SsaVarNode(BaseNode):
     @classmethod
     def create(cls, graph: DefUseGraph, ssa_var: SSAVariable, exists_ok=True, attr: Dict = {}):
         attr.update(ssa_var=ssa_var)
-        return BaseNode.create(cls, graph, ssa_var, exists_ok, attr)
+        return BaseNode.create(graph, ssa_var, exists_ok, attr)
 
     @classmethod
     def exists(cls, graph: DefUseGraph, ssa_var: SSAVariable):
@@ -143,7 +143,7 @@ class SiteNode(BaseNode):
     @classmethod
     def create(cls, graph: DefUseGraph, site: AboveMediumIL, exists_ok=True, attr: Dict = {}):
         attr.update(site=site)
-        return BaseNode.create(cls, graph, site, exists_ok, attr)
+        return BaseNode.create(graph, site, exists_ok, attr)
 
     @classmethod
     def exists(cls, graph: DefUseGraph, site: AboveMediumIL):
