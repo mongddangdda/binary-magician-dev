@@ -15,8 +15,8 @@ class UnhandledNode(SiteNode):
     type = NodeTypes.UNHANDLED
 
     @classmethod
-    def create(cls, graph: DefUseGraph, site: AboveMediumIL, **attr):
-        return SiteNode.create(cls, graph, site, **attr)
+    def create(cls, graph: DefUseGraph, site: AboveMediumIL, exists_ok=True):
+        return SiteNode.create(cls, graph, site, exists_ok)
 
     @classmethod
     def exists(cls, graph: DefUseGraph, site: AboveMediumIL):

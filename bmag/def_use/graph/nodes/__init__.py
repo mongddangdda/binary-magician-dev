@@ -28,8 +28,8 @@ class GraphNodesMixin(GraphCalledMixin, GraphKilledMixin, GraphSsaDefMixin, Grap
     def nx(self) -> DiGraph:
         ...
 
-    def add_node(self, node_type: NodeTypes, *args, **attr):
-        return self.nodes[node_type].create(self, *args, **attr)
+    def add_node(self, node_type: NodeTypes, *args, **kwargs):
+        return self.nodes[node_type].create(self, *args, **kwargs)
 
     def has_node(self, node_type: NodeTypes, *args):
         return self.nodes[node_type].exists(self, *args)

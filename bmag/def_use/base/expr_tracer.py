@@ -1,4 +1,6 @@
-from abc import ABC
+from bmag.visitor.base import BinaryNinjaILVisitor
 
-class ExprTracer(ABC):
+
+class ExprTracer(BinaryNinjaILVisitor):
     pass
+

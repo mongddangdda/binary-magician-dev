@@ -3,8 +3,6 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import Set, List, Dict
     from binaryninja import SSAVariable
-    from binaryninja.mediumlevelil import MediumLevelILOperation, MediumLevelILInstruction, MediumLevelILFunction
-    from binaryninja.highlevelil import HighLevelILOperation, HighLevelILInstruction, HighLevelILFunction
 
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
@@ -12,20 +10,19 @@ from dataclasses import dataclass
 from collections import deque
 
 from binaryninja import Function
-from binaryninja.mediumlevelil import MediumLevelILInstruction, MediumLevelILFunction
-from binaryninja.highlevelil import HighLevelILInstruction, HighLevelILFunction
+from binaryninja.mediumlevelil import MediumLevelILOperation, MediumLevelILInstruction, MediumLevelILFunction
+from binaryninja.highlevelil import HighLevelILOperation, HighLevelILInstruction, HighLevelILFunction
 
-from bmag.visitor.base import BinaryNinjaILVisitor
+from bmag.def_use.base.expr_tracer import ExprTracer
 from bmag.def_use.graph import DefUseGraph
 from bmag.def_use.graph.nodes import BaseNode
-from bmag.def_use.graph.enums import NodeTypes
 
 
-BnIL = TypeVar('BnIL', MediumLevelILInstruction, HighLevelILInstruction)
-BnILOp = TypeVar('BnILOp', MediumLevelILOperation, HighLevelILOperation)
-BnILFunction = TypeVar('BnILFunction', MediumLevelILFunction, HighLevelILFunction)
-NodeObj = TypeVar('NodeObj', bound=BaseNode)
-ExprTracerObj = TypeVar('ExprTracerObj', bound=BinaryNinjaILVisitor)
+BnIL            = TypeVar('BnIL', MediumLevelILInstruction, HighLevelILInstruction)
+BnILOp          = TypeVar('BnILOp', MediumLevelILOperation, HighLevelILOperation)
+BnILFunction    = TypeVar('BnILFunction', MediumLevelILFunction, HighLevelILFunction)
+NodeObj         = TypeVar('NodeObj', bound=BaseNode)
+ExprTracerObj   = TypeVar('ExprTracerObj', bound=ExprTracer)
 
 
 @dataclass(frozen=True)
@@ -97,6 +94,8 @@ class InstTracer(ABC, Generic[BnIL]):
         return self._excludes
 
     def register_expr_tracer(self, op: BnILOp, expr_tracer: ExprTracerObj):
+        if not isinstance(expr_tracer, ExprTracer):
+            raise ValueError
         self._expr_tracers[op] = expr_tracer
 
     def get_expr_tracer(self, op: BnILOp):
