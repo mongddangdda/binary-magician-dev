@@ -37,21 +37,24 @@ class BaseNode(ABC):
 
     @classmethod
     def exists(cls, graph: DefUseGraph, val: Any):
-
         assert cls.type
-
         node_id = cls.make_node_id(val)
+        return cls.check_exists_by_node_id(node_id)
+
+    @classmethod
+    def check_exists_by_node_id(cls, graph: DefUseGraph, node_id: str):
         return graph.nx.has_node(node_id)
 
     @classmethod
     def get(cls, graph: DefUseGraph, val: Any):
-
         assert cls.type
-
         node_id = cls.make_node_id(val)
-        if not cls.exists(graph, val):
-            raise ValueError(f"node '{node_id}' not exists.")
+        return cls.get_by_node_id(graph, node_id)
 
+    @classmethod
+    def get_by_node_id(cls, graph: DefUseGraph, node_id: str):
+        if not cls.check_exists_by_node_id(graph, node_id):
+            raise ValueError(f"node '{node_id}' not exists.")
         return cls(graph, node_id)
 
     def __init__(self, graph: DefUseGraph, node_id: str):
