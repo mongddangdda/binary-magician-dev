@@ -20,15 +20,15 @@ class UnhandledNode(SiteNode):
 
     @classmethod
     def create(cls, graph: DefUseGraph, site: AboveMediumIL, exists_ok=True):
-        return SiteNode.create(graph, site, exists_ok)
+        return super().create(graph, site, exists_ok)
 
     @classmethod
     def exists(cls, graph: DefUseGraph, site: AboveMediumIL):
-        return SiteNode.exists(graph, site)
+        return super().exists(graph, site)
 
     @classmethod
     def get(cls, graph: DefUseGraph, site: AboveMediumIL):
-        return SiteNode.get(graph, site)
+        return super().get(graph, site)
 
 
 class GraphUnhandledMixin(ABC):

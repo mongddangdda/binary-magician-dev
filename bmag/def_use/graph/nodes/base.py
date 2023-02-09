@@ -73,6 +73,14 @@ class BaseNode(ABC):
     def attr(self) -> Dict[str, Any]:
         return self.graph.nx.nodes[self.node_id]
 
+    @property
+    def in_edges(self):
+        return self.graph.nx.in_edges(self.node_id)
+
+    @property
+    def out_edges(self):
+        return self.graph.nx.out_edges(self.node_id)
+
 
 class VarNode(BaseNode):
 
@@ -114,7 +122,7 @@ class SsaVarNode(BaseNode):
     @classmethod
     def create(cls, graph: DefUseGraph, ssa_var: SSAVariable, exists_ok=True, attr: Dict = {}):
         attr.update(ssa_var=ssa_var)
-        return BaseNode.create(graph, ssa_var, exists_ok, attr)
+        return super().create(graph, ssa_var, exists_ok, attr)
 
     @classmethod
     def exists(cls, graph: DefUseGraph, ssa_var: SSAVariable):
@@ -143,7 +151,7 @@ class SiteNode(BaseNode):
     @classmethod
     def create(cls, graph: DefUseGraph, site: AboveMediumIL, exists_ok=True, attr: Dict = {}):
         attr.update(site=site)
-        return BaseNode.create(graph, site, exists_ok, attr)
+        return super().create(graph, site, exists_ok, attr)
 
     @classmethod
     def exists(cls, graph: DefUseGraph, site: AboveMediumIL):

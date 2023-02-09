@@ -20,15 +20,15 @@ class SsaDefNode(SsaVarNode):
 
     @classmethod
     def create(cls, graph: DefUseGraph, ssa_var: SSAVariable, exists_ok=True):
-        return SsaVarNode.create(graph, ssa_var, exists_ok)
+        return super().create(graph, ssa_var, exists_ok)
 
     @classmethod
     def exists(cls, graph: DefUseGraph, ssa_var: SSAVariable):
-        return SsaVarNode.exists(graph, ssa_var)
+        return super().exists(graph, ssa_var)
 
     @classmethod
     def get(cls, graph: DefUseGraph, ssa_var: SSAVariable):
-        return SsaVarNode.get(graph, ssa_var)
+        return super().get(graph, ssa_var)
 
 
 class GraphSsaDefMixin(ABC):
