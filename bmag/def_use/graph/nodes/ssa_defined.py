@@ -15,6 +15,10 @@ class SsaDefNode(SsaVarNode):
     type = NodeTypes.SSA_DEF
 
     @classmethod
+    def make_node_id(cls, ssa_var: SSAVariable) -> str:
+        return f"{cls.type.name}({ssa_var.name}#{ssa_var.version})"
+
+    @classmethod
     def create(cls, graph: DefUseGraph, ssa_var: SSAVariable, exists_ok=True):
         return SsaVarNode.create(cls, graph, ssa_var, exists_ok)
 

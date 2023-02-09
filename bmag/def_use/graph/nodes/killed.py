@@ -15,6 +15,10 @@ class KilledNode(SiteNode):
     type = NodeTypes.KILLED
 
     @classmethod
+    def make_node_id(cls, site: AboveMediumIL) -> str:
+        return f"{cls.type.name}@{site.address:x},{site.instr_index}"
+
+    @classmethod
     def create(cls, graph: DefUseGraph, site: AboveMediumIL, exists_ok=True):
         return SiteNode.create(cls, graph, site, exists_ok)
 

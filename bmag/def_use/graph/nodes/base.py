@@ -7,11 +7,16 @@ if TYPE_CHECKING:
     from binaryninja import Variable, SSAVariable
 
 
-from abc import ABC
+from abc import ABC, abstractmethod
 from ..utils import make_node_id
 
 
 class BaseNode(ABC):
+
+    @classmethod
+    @abstractmethod
+    def make_node_id(cls, val: Any) -> str:
+        ...
 
     @staticmethod
     def create(cls, graph: DefUseGraph, val: Any, exists_ok=True, attr: Dict = {}):

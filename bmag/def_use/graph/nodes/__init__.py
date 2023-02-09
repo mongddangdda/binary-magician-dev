@@ -52,3 +52,6 @@ class GraphNodesMixin(GraphCalledMixin, GraphKilledMixin, GraphSsaDefMixin, Grap
         if self.nx.has_node(node_id):
             self.nx.remove_node(node_id)
 
+    def replace_node_by_id(self, orig_node_id: str):
+        orig_node = self.get_node_by_id(orig_node_id)
+
