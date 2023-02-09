@@ -15,7 +15,7 @@ class UnhandledNode(SiteNode):
     type = NodeTypes.UNHANDLED
 
     @classmethod
-    def make_node_id(cls, site: AboveMediumIL) -> str:
+    def make_node_id(cls, site: AboveMediumIL):
         return f"{cls.type.name}@{site.address:x},{site.instr_index}"
 
     @classmethod

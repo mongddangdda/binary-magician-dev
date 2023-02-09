@@ -2,26 +2,30 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import Dict, Any
-    from ..def_use_graph import DefUseGraph
-    from ..types import AboveMediumIL
     from binaryninja import Variable, SSAVariable
+    from bmag.def_use.graph.def_use_graph import DefUseGraph
+    from bmag.def_use.graph.types import AboveMediumIL
+    from bmag.def_use.graph.enums import NodeTypes
 
 
 from abc import ABC, abstractmethod
-from ..utils import make_node_id
 
 
 class BaseNode(ABC):
 
-    @classmethod
-    @abstractmethod
-    def make_node_id(cls, val: Any) -> str:
-        ...
+    type: NodeTypes = None
 
-    @staticmethod
+    @classmethod
+    def make_node_id(cls, val: Any) -> str:
+        assert cls.type
+        return str(val)
+
+    @classmethod
     def create(cls, graph: DefUseGraph, val: Any, exists_ok=True, attr: Dict = {}):
 
-        node_id = make_node_id(cls.type, val)
+        assert cls.type
+
+        node_id = cls.make_node_id(val)
         if graph.nx.has_node(node_id):
             if not exists_ok:
                 raise ValueError(f"node '{node_id}' already exists.")
@@ -31,16 +35,23 @@ class BaseNode(ABC):
         graph.nx.add_node(node_id, **attr)
         return cls(graph, node_id)
 
-    @staticmethod
+    @classmethod
     def exists(cls, graph: DefUseGraph, val: Any):
-        node_id = make_node_id(cls.type, val)
+
+        assert cls.type
+
+        node_id = cls.make_node_id(val)
         return graph.nx.has_node(node_id)
 
-    @staticmethod
+    @classmethod
     def get(cls, graph: DefUseGraph, val: Any):
-        node_id = make_node_id(cls.type, val)
-        if not graph.nx.has_node(node_id):
+
+        assert cls.type
+
+        node_id = cls.make_node_id(val)
+        if not cls.exists(graph, val):
             raise ValueError(f"node '{node_id}' not exists.")
+
         return cls(graph, node_id)
 
     def __init__(self, graph: DefUseGraph, node_id: str):
@@ -62,10 +73,24 @@ class BaseNode(ABC):
 
 class VarNode(BaseNode):
 
-    @staticmethod
-    def create(cls: VarNode, graph: DefUseGraph, var: Variable, exists_ok=True, attr: Dict = {}):
+    type: NodeTypes = None
+
+    @classmethod
+    def make_node_id(cls, var: Variable):
+        return f"VAR({var.name})"
+
+    @classmethod
+    def create(cls, graph: DefUseGraph, var: Variable, exists_ok=True, attr: Dict = {}):
         attr.update(var=var)
-        return BaseNode.create(cls, graph, var, exists_ok, attr)
+        return super().create(graph, var, exists_ok, attr)
+
+    @classmethod
+    def exists(cls, graph: DefUseGraph, var: Variable):
+        return super().get(graph, var)
+
+    @classmethod
+    def get(cls, graph: DefUseGraph, var: Variable):
+        return super().get(graph, var)
 
     def __init__(self, graph: DefUseGraph, node_id: str):
         super().__init__(graph, node_id)
@@ -77,10 +102,24 @@ class VarNode(BaseNode):
 
 class SsaVarNode(BaseNode):
 
-    @staticmethod
-    def create(cls: SsaVarNode, graph: DefUseGraph, ssa_var: SSAVariable, exists_ok=True, attr: Dict = {}):
+    type: NodeTypes = None
+
+    @classmethod
+    def make_node_id(cls, ssa_var: SSAVariable):
+        return f"SSA_VAR({ssa_var.name}#{ssa_var.version})"
+
+    @classmethod
+    def create(cls, graph: DefUseGraph, ssa_var: SSAVariable, exists_ok=True, attr: Dict = {}):
         attr.update(ssa_var=ssa_var)
         return BaseNode.create(cls, graph, ssa_var, exists_ok, attr)
+
+    @classmethod
+    def exists(cls, graph: DefUseGraph, ssa_var: SSAVariable):
+        return super().exists(graph, ssa_var)
+
+    @classmethod
+    def get(cls, graph: DefUseGraph, ssa_var: SSAVariable):
+        return super().get(graph, ssa_var)
 
     def __init__(self, graph: DefUseGraph, node_id: str):
         super().__init__(graph, node_id)
@@ -92,10 +131,24 @@ class SsaVarNode(BaseNode):
 
 class SiteNode(BaseNode):
 
-    @staticmethod
-    def create(cls: SiteNode, graph: DefUseGraph, site: AboveMediumIL, exists_ok=True, attr: Dict = {}):
+    type: NodeTypes = None
+
+    @classmethod
+    def make_node_id(cls, val: Any) -> str:
+        return super().make_node_id(val)
+
+    @classmethod
+    def create(cls, graph: DefUseGraph, site: AboveMediumIL, exists_ok=True, attr: Dict = {}):
         attr.update(site=site)
         return BaseNode.create(cls, graph, site, exists_ok, attr)
+
+    @classmethod
+    def exists(cls, graph: DefUseGraph, site: AboveMediumIL):
+        return super().exists(graph, site)
+
+    @classmethod
+    def get(cls, graph: DefUseGraph, site: AboveMediumIL):
+        return super().get(graph, site)
 
     def __init__(self, graph: DefUseGraph, node_id: str):
         super().__init__(graph, node_id)

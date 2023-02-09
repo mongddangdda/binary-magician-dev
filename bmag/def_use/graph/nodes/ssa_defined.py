@@ -15,7 +15,7 @@ class SsaDefNode(SsaVarNode):
     type = NodeTypes.SSA_DEF
 
     @classmethod
-    def make_node_id(cls, ssa_var: SSAVariable) -> str:
+    def make_node_id(cls, ssa_var: SSAVariable):
         return f"{cls.type.name}({ssa_var.name}#{ssa_var.version})"
 
     @classmethod
