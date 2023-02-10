@@ -131,8 +131,6 @@ class InstTracer(ABC, Generic[BnIL]):
             if visit_site.site in self.excludes:
                 continue
 
-            print(f"visiting : @ 0x{visit_site.site.address:x}, {visit_site.site.instr_index}")
-
             self.visit(visit_site)
 
             if (expr_tracer := self.get_expr_tracer(visit_site.site.operation)):

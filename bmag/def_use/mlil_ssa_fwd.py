@@ -10,12 +10,14 @@ if TYPE_CHECKING:
     )
     from def_use.base.inst_tracer import Function, BnILFunction
 
+from binaryninja import log_warn
+
 from bmag.def_use.graph import Graph, CalledNode, KilledNode, UnhandledNode, SsaVarDefNode
 from bmag.def_use.base.inst_tracer import InstTracer, VisitSite
 from bmag.visitor.mlil.ssa import MediumLevelILSsaVisitor as MLILSsaVisitor
 
 
-class MLILSsaFwdInstTracer(InstTracer, MLILSsaVisitor):
+class MLILSsaFwdTracer(InstTracer, MLILSsaVisitor):
 
     def __init__(self, function: Function | BnILFunction):
         super().__init__(function)
@@ -39,6 +41,9 @@ class MLILSsaFwdInstTracer(InstTracer, MLILSsaVisitor):
         return self.visit_MLIL_SSA(visit_site.site, visit_site, *args, **kwargs)
 
     def visit_unhandled(self, inst: MediumLevelILInstruction, visit_site: VisitSite, *args, **kwargs):
+
+        log_warn(f"{inst.operation.name} is not handled.")
+
         if self.graph:
             self.graph.add_edge(
                 SsaVarDefNode(ssa_var=visit_site.src_ssa_var),
