@@ -1,36 +1,46 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from ..types import AboveMediumIL
-    from ..def_use_graph import DefUseGraph
-
+    from binaryninja import HighLevelILInstruction, MediumLevelILInstruction
+    from networkx import DiGraph
 
 from abc import ABC, abstractmethod
-from .base import SiteNode
-from ..enums import NodeTypes
+from typing import NamedTuple
+from .enums import NodeType
+from .base import NodeBase
 
 
-class UnhandledNode(SiteNode):
-    
-    type = NodeTypes.UNHANDLED
-
-    @classmethod
-    def create(cls, graph: DefUseGraph, site: AboveMediumIL, **attr):
-        return SiteNode.create(cls, graph, site, **attr)
-
-    @classmethod
-    def exists(cls, graph: DefUseGraph, site: AboveMediumIL):
-        return SiteNode.exists(cls, graph, site)
+class UnhandledNodeTuple(NamedTuple):
+    type: NodeType = NodeType.UNHANDLED
+    site: HighLevelILInstruction | MediumLevelILInstruction = None
 
 
-class GraphUnhandledMixin(ABC):
+class UnhandledNode(UnhandledNodeTuple, NodeBase):
 
+    @property
+    def label(self):
+        return f"{self.type.name}@{self.site.address:x},{self.site.instr_index}"
+
+
+class UnhandledNodeMixin(ABC):
+
+    @property
     @abstractmethod
-    def iter_nodes_with_type(self, node_type: NodeTypes):
+    def nx(self) -> DiGraph:
         ...
 
     @property
     def unhandled_nodes(self):
-        for node_id, attr in self.iter_nodes_with_type(NodeTypes.UNHANDLED):
-            yield UnhandledNode(self, node_id)
+        for node in self.nx.nodes():
+            if node[0] == NodeType.UNHANDLED:
+                yield UnhandledNode(*node)
+
+    def add_unhandled_node(self, site: HighLevelILInstruction | MediumLevelILInstruction):
+        node = UnhandledNode(site=site)
+        self.nx.add_node(node)
+
+    def get_unhandled_nodes_by_site(self, site: HighLevelILInstruction | MediumLevelILInstruction):
+        for unhandled_node in self.unhandled_nodes:
+            if unhandled_node.site == site:
+                yield unhandled_node
 

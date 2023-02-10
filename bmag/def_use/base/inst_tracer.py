@@ -3,8 +3,6 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import Set, List, Dict
     from binaryninja import SSAVariable
-    from binaryninja.mediumlevelil import MediumLevelILOperation, MediumLevelILInstruction, MediumLevelILFunction
-    from binaryninja.highlevelil import HighLevelILOperation, HighLevelILInstruction, HighLevelILFunction
 
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic
@@ -12,20 +10,16 @@ from dataclasses import dataclass
 from collections import deque
 
 from binaryninja import Function
-from binaryninja.mediumlevelil import MediumLevelILInstruction, MediumLevelILFunction
-from binaryninja.highlevelil import HighLevelILInstruction, HighLevelILFunction
+from binaryninja.mediumlevelil import MediumLevelILOperation, MediumLevelILInstruction, MediumLevelILFunction
+from binaryninja.highlevelil import HighLevelILOperation, HighLevelILInstruction, HighLevelILFunction
 
-from bmag.visitor.base import BinaryNinjaILVisitor
-from bmag.def_use.graph import DefUseGraph
-from bmag.def_use.graph.nodes import BaseNode
-from bmag.def_use.graph.enums import NodeTypes
+from bmag.def_use.base.expr_tracer import ExprTracer
 
 
-BnIL = TypeVar('BnIL', MediumLevelILInstruction, HighLevelILInstruction)
-BnILOp = TypeVar('BnILOp', MediumLevelILOperation, HighLevelILOperation)
-BnILFunction = TypeVar('BnILFunction', MediumLevelILFunction, HighLevelILFunction)
-NodeObj = TypeVar('NodeObj', bound=BaseNode)
-ExprTracerObj = TypeVar('ExprTracerObj', bound=BinaryNinjaILVisitor)
+BnIL            = TypeVar('BnIL', MediumLevelILInstruction, HighLevelILInstruction)
+BnILOp          = TypeVar('BnILOp', MediumLevelILOperation, HighLevelILOperation)
+BnILFunction    = TypeVar('BnILFunction', MediumLevelILFunction, HighLevelILFunction)
+ExprTracerObj   = TypeVar('ExprTracerObj', bound=ExprTracer)
 
 
 @dataclass(frozen=True)
@@ -36,19 +30,12 @@ class VisitSite(Generic[BnIL]):
 
 class InstTracer(ABC, Generic[BnIL]):
 
-    def __init__(self, function: Function | BnILFunction,
-                 def_use_graph: DefUseGraph = None,
-                 enable_graph: bool = True):
+    def __init__(self, function: Function | BnILFunction):
 
         if type(function) != Function:
             function = function.source_function
 
-        if not def_use_graph:
-            def_use_graph = DefUseGraph()
-
         self._function: Function = function
-        self._def_use_graph: DefUseGraph = def_use_graph
-        self._graph_enabled: bool = enable_graph
 
         self._expr_tracers: Dict[BnILOp, ExprTracerObj] = {}
 
@@ -77,14 +64,6 @@ class InstTracer(ABC, Generic[BnIL]):
         return self.func_hlil.ssa_form
 
     @property
-    def def_use_graph(self):
-        return self._def_use_graph
-
-    @property
-    def graph_enabled(self):
-        return self._graph_enabled
-
-    @property
     def to_visit(self):
         return self._to_visit
 
@@ -97,6 +76,8 @@ class InstTracer(ABC, Generic[BnIL]):
         return self._excludes
 
     def register_expr_tracer(self, op: BnILOp, expr_tracer: ExprTracerObj):
+        if not isinstance(expr_tracer, ExprTracer):
+            raise ValueError
         self._expr_tracers[op] = expr_tracer
 
     def get_expr_tracer(self, op: BnILOp):
@@ -149,8 +130,6 @@ class InstTracer(ABC, Generic[BnIL]):
             visit_site = self._to_visit.pop()
             if visit_site.site in self.excludes:
                 continue
-
-            print(f"visiting : @ 0x{visit_site.site.address:x}, {visit_site.site.instr_index}")
 
             self.visit(visit_site)
 
