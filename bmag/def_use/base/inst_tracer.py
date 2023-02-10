@@ -14,14 +14,11 @@ from binaryninja.mediumlevelil import MediumLevelILOperation, MediumLevelILInstr
 from binaryninja.highlevelil import HighLevelILOperation, HighLevelILInstruction, HighLevelILFunction
 
 from bmag.def_use.base.expr_tracer import ExprTracer
-from bmag.def_use.graph import DefUseGraph
-from bmag.def_use.graph.nodes import BaseNode
 
 
 BnIL            = TypeVar('BnIL', MediumLevelILInstruction, HighLevelILInstruction)
 BnILOp          = TypeVar('BnILOp', MediumLevelILOperation, HighLevelILOperation)
 BnILFunction    = TypeVar('BnILFunction', MediumLevelILFunction, HighLevelILFunction)
-NodeObj         = TypeVar('NodeObj', bound=BaseNode)
 ExprTracerObj   = TypeVar('ExprTracerObj', bound=ExprTracer)
 
 
@@ -33,19 +30,12 @@ class VisitSite(Generic[BnIL]):
 
 class InstTracer(ABC, Generic[BnIL]):
 
-    def __init__(self, function: Function | BnILFunction,
-                 def_use_graph: DefUseGraph = None,
-                 enable_graph: bool = True):
+    def __init__(self, function: Function | BnILFunction):
 
         if type(function) != Function:
             function = function.source_function
 
-        if not def_use_graph:
-            def_use_graph = DefUseGraph()
-
         self._function: Function = function
-        self._def_use_graph: DefUseGraph = def_use_graph
-        self._graph_enabled: bool = enable_graph
 
         self._expr_tracers: Dict[BnILOp, ExprTracerObj] = {}
 
@@ -72,14 +62,6 @@ class InstTracer(ABC, Generic[BnIL]):
     @property
     def func_hlil_ssa(self):
         return self.func_hlil.ssa_form
-
-    @property
-    def def_use_graph(self):
-        return self._def_use_graph
-
-    @property
-    def graph_enabled(self):
-        return self._graph_enabled
 
     @property
     def to_visit(self):
